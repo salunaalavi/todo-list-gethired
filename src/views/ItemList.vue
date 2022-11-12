@@ -165,7 +165,7 @@ const updateTitle = () => {
         v-for="todo in todos"
         :key="todo.id"
       >
-        <TodoCard :todo="todo" @alert="alertValue" />
+        <TodoCard :todo="todo" @alert="alertValue" data-cy="todo-item" />
       </div>
     </div>
 

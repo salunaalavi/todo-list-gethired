@@ -26,7 +26,6 @@ const selectPriority = (str) => {
 
 <template>
   <div
-    @click.self="closeDropdown"
     id="dropdown"
     :class="dropdown ? '' : 'hidden'"
     class="absolute w-44 bg-white rounded shadow dark:bg-gray-700"
@@ -37,7 +36,7 @@ const selectPriority = (str) => {
     >
       <li v-for="filter in filters" :key="filter.text" :data-cy="filter.data">
         <button
-          :data-cy="filter.data"
+          data-cy="sort-selection"
           @click="select(filter.text)"
           class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-blue"
         >
