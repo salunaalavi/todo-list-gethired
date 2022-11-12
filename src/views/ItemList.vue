@@ -23,6 +23,7 @@ const loading = ref(false);
 const showInput = ref(false);
 const modal = ref(false);
 const sort = ref(false);
+const text = ref();
 const todo = ref({
   title: "Very High",
   priority: "very-high",
@@ -66,14 +67,14 @@ const getTodos = () => {
 
 getTodos();
 
-const todos = computed((text) => {
-  if (text == "Terbaru") {
+const todos = computed(() => {
+  if (text.value == "Terbaru") {
     return store.state.todos.sort((a, b) => b.id - a.id);
-  } else if (text == "Terlama") {
+  } else if (text.value == "Terlama") {
     return store.state.todos.sort((a, b) => a.id - b.id);
-  } else if (text == "A-Z") {
+  } else if (text.value == "A-Z") {
     return store.state.todos.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (text == "Z-A") {
+  } else if (text.value == "Z-A") {
     return store.state.todos.sort((a, b) => b.title.localeCompare(a.title));
   } else {
     return store.state.todos.sort((a, b) => b.is_active - a.is_active);
@@ -82,8 +83,9 @@ const todos = computed((text) => {
 
 const currentTodo = computed(() => store.state.todo);
 
-const selectPriority = (title) => {
+const selectSort = (title) => {
   sort.value = !sort.value;
+  text.value = title
 };
 
 const updateTitle = () => {
@@ -106,11 +108,21 @@ const updateTitle = () => {
       :id="id"
       @close="modalValue"
     />
-    <Alert v-if="alert" :alert="alert" :type="'activity'" @close="alertValue" data-cy="alert-activity" />
+    <Alert
+      v-if="alert"
+      :alert="alert"
+      :type="'activity'"
+      @close="alertValue"
+      data-cy="alert-activity"
+    />
     <div class="title flex justify-between items-center">
       <div class="flex gap-4 items-center">
         <router-link to="/">
-          <img data-cy="todo-back-button" src="../assets/icons/todo-back-button.svg" alt="" />
+          <img
+            data-cy="todo-back-button"
+            src="../assets/icons/todo-back-button.svg"
+            alt=""
+          />
         </router-link>
         <input
           ref="inputTitle"
@@ -147,7 +159,7 @@ const updateTitle = () => {
           data-cy="todo-sort-button"
           :dropdown="sort"
           :filters="filters"
-          @select="selectPriority"
+          @select="selectSort"
           @close="sortValue"
         />
         <Button
@@ -172,10 +184,7 @@ const updateTitle = () => {
     </div>
 
     <div v-else class="flex justify-center">
-      <button
-        class="bg-transparent pb-[25px]"
-        @click="modalValue"
-      >
+      <button class="bg-transparent pb-[25px]" @click="modalValue">
         <img
           data-cy="todo-empty-state"
           src="@/assets/icons/todo-empty-state.svg"
