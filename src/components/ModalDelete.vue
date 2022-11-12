@@ -26,8 +26,8 @@ const close = () => {
     :class="modal ? 'justify-center items-center flex' : 'hidden'"
     class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
   >
-    <div class="relative modal-layout flex items-center md:h-auto">
-      <div class="relative bg-white modal-content text-center" data-cy="modal-delete">
+    <div class="relative modal-layout flex items-center md:h-auto" data-cy="modal-delete">
+      <div class="relative bg-white modal-content text-center">
         <div class="modal-header flex justify-center items-center">
           <img
             data-cy="modal-delete-icon"
