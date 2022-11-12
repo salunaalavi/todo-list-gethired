@@ -117,6 +117,7 @@ const updateTitle = () => {
           data-cy="update-title"
           v-if="showInput"
           @focusout="updateTitle"
+          @keyup.enter="updateTitle"
           tabindex="0"
           type="text"
           v-model="currentTodo.title"
