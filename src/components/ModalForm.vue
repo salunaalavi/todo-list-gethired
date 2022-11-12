@@ -145,7 +145,7 @@ computed(() => {
               data-cy="modal-add-priority-title"
               >PRIORITY</label
             >
-            <button id="priorityButton" @click.prevent="dropdownValue">
+            <button id="priorityButton" @click.prevent="dropdownValue" data-cy="modal-add-priority-dropdown">
               <div v-if="!dropdown" class="flex items-center">
                 <div
                   data-cy="todo-item-priority-indicator"

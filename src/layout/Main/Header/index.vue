@@ -7,7 +7,7 @@
   <nav class="flex items-center bg-blue">
     <div class="container mx-auto" data-cy="header-background">
       <h2 class="text-white font-bold uppercase" data-cy="header-title">
-        To Do List App
+        TO DO LIST APP
       </h2>
     </div>
   </nav>
