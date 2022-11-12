@@ -117,6 +117,7 @@ const updateTitle = () => {
           data-cy="update-title"
           v-if="showInput"
           @focusout="updateTitle"
+          @keyup.enter="updateTitle"
           tabindex="0"
           type="text"
           v-model="currentTodo.title"
@@ -164,8 +165,9 @@ const updateTitle = () => {
         class="content-item flex justify-between bg-white"
         v-for="todo in todos"
         :key="todo.id"
+        data-cy="todo-item"
       >
-        <TodoCard :todo="todo" @alert="alertValue" data-cy="todo-item" />
+        <TodoCard :todo="todo" @alert="alertValue" />
       </div>
     </div>
 
