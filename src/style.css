@@ -4,5 +4,13 @@
 @tailwind utilities;
 
 #app {
-    margin-top: 105px;
+    min-height: 100vh;
+    padding-top: 105px;
+    background-color: #F4F4F4;
 }
+.label-indicator {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    margin: 0 19px 0 7px;
+  }
