@@ -2,10 +2,7 @@ import axios from 'axios'
 import { createStore } from 'vuex'
 import router from '../router'
 
-const BASE_URL = "https://todo.api.devcode.gethired.id/";
-axios.defaults.baseURL = BASE_URL;
-
-const email = "salunaalavi@gmail.com";
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const store = createStore({
     state: {
@@ -69,12 +66,12 @@ const store = createStore({
     },
     actions: {
         async getActivities({ commit }) {
-            const { data } = await axios.get('activity-groups', { params: { email: email } });
+            const { data } = await axios.get('activity-groups', { params: { email: import.meta.env.VITE_EMAIL } });
             commit("storeActivites", data);
         },
 
         async setActivities({ commit }) {
-            const { data } = await axios.post('activity-groups', { email, title: 'New Activity' });
+            const { data } = await axios.post('activity-groups', { email: import.meta.env.VITE_EMAIL, title: 'New Activity' });
             commit("storeActivity", data);
         },
 
