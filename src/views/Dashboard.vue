@@ -5,6 +5,8 @@ import { ref, computed, onMounted, onBeforeMount } from "vue";
 import { useStore, mapState, mapActions } from "vuex";
 import Button from "@/components/Button.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
+import Alert from "@/components/Alert.vue";
+const alert = ref(false);
 
 const store = useStore();
 
@@ -12,6 +14,10 @@ const loading = ref(false);
 
 const addActivity = () => {
   store.dispatch("setActivities");
+};
+
+const alertValue = () => {
+  alert.value = !alert.value;
 };
 
 const getActivities = () => {
@@ -22,54 +28,12 @@ const getActivities = () => {
 getActivities();
 
 const activities = computed(() => store.state.activities);
-
-// console.log(activities.value);
-
-// export default {
-//   components: {
-//     Button,
-//     ActivityCard,
-//   },
-//   setup() {
-//     const store = useStore();
-
-//     const getActivities = onMounted(() => {
-//       store.dispatch("getActivities");
-//     });
-
-//     const activities = computed(() => store.state.activities);
-
-//     const addActivity = () => {
-//       store.dispatch("setActivities");
-//     };
-
-//     return {
-//       activities,
-//       getActivities,
-//       addActivity,
-//     };
-//   },
-// };
-
-// export default {
-//   components: {
-//     Button,
-//     ActivityCard,
-//   },
-//   computed: mapState(["activities"]),
-//   created() {
-//     this.getActivities();
-//   },
-//   methods: {
-//     ...mapActions(["setActivities", "getActivities"]),
-//   },
-// };
 </script>
 
 <template>
-  <div v-if="loading">Loading...</div>
-  <div v-else class="wrapper">
-    <!-- <Alert v-show="showAlert" :message="'Activity berhasil dihapus'" /> -->
+  <template v-if="loading">Loading...</template>
+  <template v-else>
+    <Alert v-if="alert" :alert="alert" :type="'activity'" @close="alertValue" data-cy="alert-activity" />
     <div class="title flex justify-between items-center">
       <h1 data-cy="activity-title">Activity</h1>
       <Button data-cy="activity-add-button" type="primary" @click="addActivity">
@@ -79,17 +43,22 @@ const activities = computed(() => store.state.activities);
     </div>
     <div v-if="activities.length > 0" class="row flex-wrap">
       <div class="col" v-for="activity in activities" :key="activity.id">
-        <ActivityCard :activity="activity" />
+        <ActivityCard :activity="activity" @alert="alertValue" />
       </div>
     </div>
-    <img
-      v-else
-      data-cy="activity-empty-state"
-      @click="addActivity"
-      src="@/assets/vue.svg"
-      alt="empty"
-    />
-  </div>
+    <div v-else class="flex justify-center">
+      <button
+        class="bg-transparent pb-[25px]"
+        @click="addActivity"
+      >
+        <img
+          data-cy="activity-empty-state"
+          src="@/assets/icons/activity-empty-state.svg"
+          alt="empty"
+        />
+      </button>
+    </div>
+  </template>
 </template>
 
 <style scoped>

@@ -6,8 +6,14 @@ defineProps({
 
 <template>
   <button
-    class="font-bold text-white"
-    :class="type === 'primary' ? 'bg-blue' : ''"
+    class="font-bold disabled:opacity-20"
+    :class="
+      type === 'primary'
+        ? 'bg-blue text-white'
+        : type === 'secondary'
+        ? 'bg-background text-black'
+        : type === 'danger' && 'bg-red text-white'
+    "
   >
     <slot />
   </button>

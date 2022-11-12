@@ -1,13 +1,17 @@
 <script setup>
-import { computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
-import IconTrash from "@/assets/icons/activity-item-delete-button.svg";
+import ModalDelete from "@/components/ModalDelete.vue";
 
 const store = useStore();
+
+const modal = ref(false);
 
 const props = defineProps({
   activity: Object,
 });
+
+const emit = defineEmits(["alert"]);
 
 const formattedDate = computed(() =>
   new Date(props.activity.created_at).toLocaleDateString("id-ID", {
@@ -17,34 +21,30 @@ const formattedDate = computed(() =>
   })
 );
 
-const deleteActivity = () => {
-  store.dispatch("deleteActivity", props.activity.id);
+const modalValue = () => {
+  modal.value = !modal.value;
 };
 
-// @click.prevent="deleteModal(activity.title, activity.id)"
-// export default {
-//   props: ["activity"],
-//   components: { IconTrash },
-//   computed: {
-//     formattedDate() {
-//       return new Date(this.activity.created_at).toLocaleDateString("id-ID", {
-//         year: "numeric",
-//         month: "long",
-//         day: "numeric",
-//       });
-//     },
-//   },
-//   methods: {
-//     ...mapActions(["deleteActivity", "toggleDeleteModal", "selectDelete"]),
-//     deleteActivity() {
-//       this.selectDelete(this.activity);
-//     //   this.toggleDeleteModal();
-//     },
-//   },
-// };
+// console.log(modal.value);
+
+const deleteActivity = async () => {
+  store.dispatch("deleteActivity", props.activity.id).then(() => {
+    modal.value = !modal.value;
+    emit("alert");
+  });
+};
 </script>
 
 <template>
+  <ModalDelete
+    v-if="modal"
+    data-cy="activity-modal-delete"
+    :modal="modal"
+    :type="'activity'"
+    :title="activity.title"
+    @close="modalValue"
+    @deleteItem="deleteActivity"
+  />
   <div data-cy="activity-item" class="activity-item bg-white">
     <h3
       class="font-bold"
@@ -63,7 +63,7 @@ const deleteActivity = () => {
       <button
         data-cy="activity-item-delete-button"
         class="bg-transparent"
-        @click="deleteActivity"
+        @click.prevent="modalValue"
       >
         <img
           data-cy="modal-delete"
