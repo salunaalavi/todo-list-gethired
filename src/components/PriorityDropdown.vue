@@ -41,7 +41,7 @@ const selectPriority = (str) => {
           :data-cy="priority.data"
           class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-blue"
         >
-          <div class="flex items-center">
+          <div class="flex items-center" data-cy="modal-add-priority-item">
             <div
               data-cy="todo-item-priority-indicator"
               class="label-indicator"
