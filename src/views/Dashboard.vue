@@ -22,7 +22,7 @@ const alertValue = () => {
 
 const getActivities = () => {
   loading.value = true;
-  store.dispatch("getActivities").finally(() => (loading.value = false));
+  store.dispatch("getActivities").then(() => (loading.value = false));
 };
 
 onMounted(() => {

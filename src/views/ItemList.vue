@@ -173,12 +173,11 @@ const updateTitle = () => {
 
     <div v-else class="flex justify-center">
       <button
-        data-cy="activity-item-delete-button"
         class="bg-transparent pb-[25px]"
         @click="modalValue"
       >
         <img
-          data-cy="activity-empty-state"
+          data-cy="todo-empty-state"
           src="@/assets/icons/todo-empty-state.svg"
           alt="empty"
         />
