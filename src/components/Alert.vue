@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from "vue";
-import { mapState, mapActions } from "vuex";
 import Button from "./Button.vue";
 
 const props = defineProps({

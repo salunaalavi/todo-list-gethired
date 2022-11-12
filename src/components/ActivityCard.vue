@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import ModalDelete from "@/components/ModalDelete.vue";
 
@@ -24,8 +24,6 @@ const formattedDate = computed(() =>
 const modalValue = () => {
   modal.value = !modal.value;
 };
-
-// console.log(modal.value);
 
 const deleteActivity = async () => {
   store.dispatch("deleteActivity", props.activity.id).then(() => {

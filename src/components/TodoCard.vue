@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import ModalDelete from "@/components/ModalDelete.vue";
 import ModalForm from "@/components/ModalForm.vue";
@@ -29,8 +29,6 @@ const updateActiveItem = async () => {
     is_active: !props.todo.is_active,
   });
 };
-
-// console.log(modal.value);
 
 const deleteActivity = async () => {
   store.dispatch("deleteTodo", props.todo.id).then(() => {
