@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useStore, mapState, mapActions } from "vuex";
+import { useStore } from "vuex";
 import Button from "./Button.vue";
 import PriorityDropdown from "./PriorityDropdown.vue";
 
@@ -44,31 +44,22 @@ const props = defineProps({
   id: String,
 });
 
-// console.log(props.todo.title);
-
 const emit = defineEmits(["close"]);
 
 const saveTodo = () => {
   if (props.title) {
-    // input.value = props.title;
-    // console.log(input.value)
-    // select.value = props.todo.priority;
-    // console.log(input.value, select.value);
     const data = {
       id: props.id,
       title: input.value,
       priority: select.value,
     };
-    console.log(data);
     store.dispatch("updateTodos", data);
   } else {
-    // console.log(input.value, select.value);
     const data = {
       id: props.id,
       title: input.value,
       priority: select.value,
     };
-    console.log(data);
     store.dispatch("setTodos", data);
   }
 };
@@ -92,12 +83,9 @@ const isDisabled = computed(() => {
   return !input.value;
 });
 
-console.log(props.title);
-
 computed(() => {
   if (props.title) {
     input.value = props.title;
-    console.log(props.title);
   }
 });
 </script>
