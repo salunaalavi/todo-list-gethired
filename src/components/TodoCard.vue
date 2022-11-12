@@ -90,7 +90,7 @@ const deleteActivity = async () => {
       {{ todo.title }}
     </h3>
     <button
-      data-cy="activity-item-edit-button"
+      data-cy="todo-item-edit-button"
       class="bg-transparent pr-[11px]"
       @click="modalEditValue"
     >
@@ -104,12 +104,12 @@ const deleteActivity = async () => {
     </button>
   </div>
   <button
-    data-cy="activity-item-delete-button"
+    data-cy="todo-item-delete-button"
     class="bg-transparent"
     @click.prevent="modalValue"
   >
     <img
-      src="../assets/icons/activity-item-delete-button.svg"
+      src="@/assets/icons/todo-item-delete-button.svg"
       alt=""
     />
   </button>

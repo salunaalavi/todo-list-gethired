@@ -36,7 +36,6 @@ const deleteActivity = async () => {
 <template>
   <ModalDelete
     v-if="modal"
-    data-cy="activity-modal-delete"
     :modal="modal"
     :type="'activity'"
     :title="activity.title"
