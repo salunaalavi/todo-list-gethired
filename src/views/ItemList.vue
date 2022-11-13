@@ -88,12 +88,8 @@ const selectSort = (title) => {
   text.value = title;
 };
 
-const updateTitle = () => {
-  const data = {
-    id: route.params.id,
-    title: currentTodo.value.title,
-  };
-  store.dispatch("updateActivities", data);
+const updateTitle = (id, title) => {
+  store.dispatch("updateActivities", { id, title });
   showInput.value = false;
 };
 </script>
@@ -128,8 +124,8 @@ const updateTitle = () => {
           ref="inputTitle"
           data-cy="update-title"
           v-if="showInput"
-          @focusout="updateTitle"
-          @keyup.enter="updateTitle"
+          @focusout="updateTitle(route.params.id, currentTodo.title)"
+          @keyup.enter="updateTitle(route.params.id, currentTodo.title)"
           tabindex="0"
           type="text"
           v-model="currentTodo.title"
