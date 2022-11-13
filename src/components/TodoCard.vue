@@ -84,6 +84,7 @@ const deleteActivity = async () => {
     ></div>
     <h3
       data-cy="todo-item-title"
+      @click="modalEditValue"
       class="todo-title font-medium"
       :class="todo.is_active ? '' : 'line-through text-grey'"
     >

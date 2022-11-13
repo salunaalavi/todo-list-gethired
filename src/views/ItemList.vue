@@ -102,7 +102,6 @@ const updateTitle = () => {
   <template v-else>
     <ModalForm
       v-if="modal"
-      data-cy="activity-modal-delete"
       :modal="modal"
       :todo="todo"
       :id="id"
