@@ -85,14 +85,15 @@ const currentTodo = computed(() => store.state.todo);
 
 const selectSort = (title) => {
   sort.value = !sort.value;
-  text.value = title
+  text.value = title;
 };
 
 const updateTitle = () => {
-  store.dispatch("updateActivities", {
+  const data = {
     id: route.params.id,
     title: currentTodo.value.title,
-  });
+  };
+  store.dispatch("updateActivities", data);
   showInput.value = false;
 };
 </script>
