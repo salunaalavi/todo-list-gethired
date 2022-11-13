@@ -36,6 +36,20 @@ const filters = ref([
   { icon: updown, text: "Belum selesai", data: "sort-unfinished" },
 ]);
 const id = ref();
+const todos = computed(() => {
+  if (text.value == "Terbaru") {
+    return store.state.todos.sort((a, b) => b.id - a.id);
+  } else if (text.value == "Terlama") {
+    return store.state.todos.sort((a, b) => a.id - b.id);
+  } else if (text.value == "A-Z") {
+    return store.state.todos.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (text.value == "Z-A") {
+    return store.state.todos.sort((a, b) => b.title.localeCompare(a.title));
+  } else {
+    return store.state.todos.sort((a, b) => b.is_active - a.is_active);
+  }
+});
+const currentTodo = computed(() => store.state.todo);
 
 const addActivity = () => {
   store.dispatch("setActivities");
@@ -65,24 +79,6 @@ const getTodos = () => {
     .finally(() => (loading.value = false));
 };
 
-getTodos();
-
-const todos = computed(() => {
-  if (text.value == "Terbaru") {
-    return store.state.todos.sort((a, b) => b.id - a.id);
-  } else if (text.value == "Terlama") {
-    return store.state.todos.sort((a, b) => a.id - b.id);
-  } else if (text.value == "A-Z") {
-    return store.state.todos.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (text.value == "Z-A") {
-    return store.state.todos.sort((a, b) => b.title.localeCompare(a.title));
-  } else {
-    return store.state.todos.sort((a, b) => b.is_active - a.is_active);
-  }
-});
-
-const currentTodo = computed(() => store.state.todo);
-
 const selectSort = (title) => {
   sort.value = !sort.value;
   text.value = title;
@@ -90,8 +86,10 @@ const selectSort = (title) => {
 
 const updateTitle = (id, title) => {
   store.dispatch("updateActivities", { id, title });
-  showInput.value = false;
+  openInput();
 };
+
+getTodos();
 </script>
 
 <template>

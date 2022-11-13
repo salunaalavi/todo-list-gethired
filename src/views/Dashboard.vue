@@ -6,11 +6,18 @@ import { useStore } from "vuex";
 import Button from "@/components/Button.vue";
 import ActivityCard from "@/components/ActivityCard.vue";
 import Alert from "@/components/Alert.vue";
-const alert = ref(false);
 
 const store = useStore();
 
+const alert = ref(false);
 const loading = ref(false);
+const activities = computed(() => store.state.activities);
+
+const getActivities = () => {
+  loading.value = true;
+  store.dispatch("getActivities");
+  loading.value = false;
+};
 
 const addActivity = () => {
   store.dispatch("setActivities");
@@ -20,23 +27,19 @@ const alertValue = () => {
   alert.value = !alert.value;
 };
 
-const getActivities = () => {
-  loading.value = true;
-  store.dispatch("getActivities");
-  loading.value = false
-};
-
-onMounted(() => {
-    getActivities();
-})
-
-const activities = computed(() => store.state.activities);
+getActivities();
 </script>
 
 <template>
   <template v-if="loading">Loading...</template>
   <template v-else>
-    <Alert v-if="alert" :alert="alert" :type="'activity'" @close="alertValue" data-cy="alert-activity" />
+    <Alert
+      v-if="alert"
+      :alert="alert"
+      :type="'activity'"
+      @close="alertValue"
+      data-cy="alert-activity"
+    />
     <div class="title flex justify-between items-center">
       <h1 data-cy="activity-title">Activity</h1>
       <Button data-cy="activity-add-button" type="primary" @click="addActivity">
@@ -50,10 +53,7 @@ const activities = computed(() => store.state.activities);
       </div>
     </div>
     <div v-else class="flex justify-center">
-      <button
-        class="bg-transparent pb-[25px]"
-        @click="addActivity"
-      >
+      <button class="bg-transparent pb-[25px]" @click="addActivity">
         <img
           data-cy="activity-empty-state"
           src="@/assets/icons/activity-empty-state.svg"
