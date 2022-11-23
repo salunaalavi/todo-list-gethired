@@ -86,7 +86,8 @@ const selectSort = (title) => {
 
 const updateTitle = (id, title) => {
   store.dispatch("updateActivities", { id, title });
-  openInput();
+  store.dispatch("getTodos", id);
+  showInput.value = valse;
 };
 
 getTodos();
