@@ -102,7 +102,7 @@ const updateTitle = debounce((id, title) => {
   store.dispatch("updateActivities", { id, title });
   //   store.dispatch("getTodos", id);
   openInput();
-}, 500);
+}, 100);
 
 getTodos();
 </script>
