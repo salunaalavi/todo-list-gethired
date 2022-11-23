@@ -21,6 +21,7 @@ const getActivities = () => {
 
 const addActivity = () => {
   store.dispatch("setActivities");
+  store.dispatch("getActivities");
 };
 
 const alertValue = () => {
