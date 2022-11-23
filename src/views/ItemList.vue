@@ -84,11 +84,25 @@ const selectSort = (title) => {
   text.value = title;
 };
 
-const updateTitle = (id, title) => {
-  store.dispatch("updateActivities", { id, title });
-  store.dispatch("getTodos", id);
-  showInput.value = valse;
+const debounce = (fn, delay) => {
+  let timeouts;
+
+  return (...args) => {
+    if (timeouts) {
+      clearTimeout(timeouts);
+    }
+
+    timeouts = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
 };
+
+const updateTitle = debounce((id, title) => {
+  store.dispatch("updateActivities", { id, title });
+  //   store.dispatch("getTodos", id);
+  openInput();
+}, 100);
 
 getTodos();
 </script>
@@ -123,8 +137,7 @@ getTodos();
           ref="inputTitle"
           data-cy="update-title"
           v-if="showInput"
-          @focusout="updateTitle(route.params.id, currentTodo.title)"
-          @keyup.enter="updateTitle(route.params.id, currentTodo.title)"
+          @input="updateTitle(route.params.id, currentTodo.title)"
           tabindex="0"
           type="text"
           v-model="currentTodo.title"
